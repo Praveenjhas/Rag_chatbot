@@ -57,3 +57,26 @@ pip install -r requirements.txt
 
 If you face issues with datasets, install it separately:
 pip install datasets
+2️⃣ Add Your PDF Files
+Place your crop-specific PDF files inside the data/ directory.
+Each file should be named according to the crop it covers, all lowercase with no spaces. For example:
+data/
+├── onion.pdf
+├── wheat.pdf
+├── tomato.pdf
+3️⃣ Add Your OpenRouter & OpenAI Keys
+In main.py, replace the following lines with your actual API keys:
+# OpenRouter key for LLM calls
+openai_api_key = "sk-..."  
+
+# OpenAI key for RAGAS evaluation (used internally by ragas)
+import os
+os.environ["OPENAI_API_KEY"] = "sk-..."
+🙏 Acknowledgments
+LangChain
+
+OpenRouter
+
+RAGAS
+
+HuggingFace Sentence Transformers
