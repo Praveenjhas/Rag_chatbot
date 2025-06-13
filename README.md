@@ -32,6 +32,14 @@ A Retrieval-Augmented Generation (RAG) bot designed to assist farmers and agricu
 
 ## 📂 Directory Structure
 
+Agricult-AIcult-RAG
+├── data/ # Folder containing crop PDFs
+├── vectorstore/ # Chroma DB vector store (auto-created)
+├── ragas_evaluation_report.xlsx # Evaluation results (auto-generated)
+├── main.py # Full RAG pipeline script
+├── requirements.txt # Required Python dependencies
+└── README.md # You're here!
+
 
 ---
 
@@ -42,8 +50,10 @@ A Retrieval-Augmented Generation (RAG) bot designed to assist farmers and agricu
 Make sure you have **Python 3.11.9+** installed.
 
 Install all required packages:
-bash
-pip install -r requirements.txt
-If you face issues with datasets, install it separately:
 
+```bash
+pip install -r requirements.txt
+* installed.
+
+If you face issues with datasets, install it separately:
 pip install datasets
