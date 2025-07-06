@@ -143,10 +143,9 @@ else:
 
 retriever = db.as_retriever(search_kwargs={"k": 3})
 # Initialize LLM
-api_key = st.secrets["OPENROUTER"]
 llm = ChatOpenAI(
     openai_api_base="https://openrouter.ai/api/v1",
-    openai_api_key=api_key,
+    openai_api_key=st.secrets["openrouter"]["api_key"],
     model="openai/gpt-4.1",
     temperature=0.7,
     max_tokens=1024,
