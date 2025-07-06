@@ -1,6 +1,6 @@
 import os
 import fitz  
-from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 from langchain.load import dumps, loads
@@ -92,18 +92,20 @@ embedding_model = HuggingFaceEmbeddings(
         'normalize_embeddings': True
     }
 )
-db_path = "./vectorstore/db_faiss"
-known_plants=['melon', 'potato', 'okra', 'lettuce', 'peanut', 'onion', 'strawberry', 'sugarcane']
-if os.path.exists(db_path) and os.path.isdir(db_path) and os.listdir(db_path):
-    print("✅ Database already exists. Skipping PDF processing and embedding.")
-    db = Chroma(persist_directory=db_path, embedding_function=embedding_model)
+db_path = "faiss_index"
+known_plants = ['melon', 'potato', 'okra', 'lettuce', 'peanut', 'onion', 'strawberry', 'sugarcane']
+
+if os.path.exists(db_path):
+    print(" Loading FAISS index from disk...")
+    db = FAISS.load_local(db_path, embedding_model, allow_dangerous_deserialization=True)
 else:
-    documents = load_pdf_files(data_path="data")
+    print("🚀 Building FAISS index from PDFs...")
+    documents = load_pdf_files("data")
     splitter = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=300)
     chunks = splitter.split_documents(documents)
-    db = Chroma.from_documents(chunks, embedding_model, persist_directory=db_path)
-    db.persist()
-    print(f"✅ Vector store created with {len(chunks)} chunks")
+    db = FAISS.from_documents(chunks, embedding_model)
+    db.save_local(db_path)
+    print(f" FAISS vector store created with {len(chunks)} chunks.")
 
 # Initialize LLM
 llm = ChatOpenAI(
