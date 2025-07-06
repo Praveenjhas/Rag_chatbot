@@ -21,7 +21,7 @@ from langchain_core.prompts import ChatPromptTemplate, FewShotChatMessagePromptT
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough, RunnableLambda, RunnableMap
 from langchain.memory import ConversationBufferMemory
-
+import streamlit as st
 # Translation class
 class HinglishTranslator:
     def __init__(self):
@@ -143,6 +143,7 @@ else:
 
 retriever = db.as_retriever(search_kwargs={"k": 3})
 # Initialize LLM
+api_key = st.secrets["api_key"]["OPENROUTER"]
 llm = ChatOpenAI(
     openai_api_base="https://openrouter.ai/api/v1",
     openai_api_key=api_key,
