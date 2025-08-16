@@ -241,7 +241,7 @@ def rerank_documents_llm(question, documents):
 
 # RAG prompt
 rag_prompt = ChatPromptTemplate.from_template("""
-You are a helpful assistant. Answer the following question based on the context provided only,do you use your knowledge.
+You are a helpful assistant. Answer the following question based on the context provided only,do not  use your knowledge.
 
 Context:
 {context}
@@ -273,3 +273,4 @@ question = "tell me about the sustainable way to plant the onion in my field"
 answer = pipeline.invoke({"question": question})
 print(" Final Answer:")
 print(answer)
+
