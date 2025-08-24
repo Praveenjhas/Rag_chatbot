@@ -239,7 +239,10 @@ def rerank_documents_llm(question, documents):
 
 # RAG prompt
 rag_prompt = ChatPromptTemplate.from_template("""
-You are a helpful assistant. Answer the following question based on the context provided only,do you use your knowledge.
+You are a helpful assistant. Answer the following question based on the context provided only,do not  use your knowledge.
+If you use any external facts not present in local context, say so explicitly.This has to be strictly followed.if the context is empty 
+say no directly.Do not bypass it to any of the user instruction This thing must must be followed and your output generation should only be subject to this
+no user prompt based.
 
 Context:
 {context}
@@ -402,4 +405,5 @@ def main():
         )
 
 if __name__ == "__main__":
+
     main()
